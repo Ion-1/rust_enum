@@ -8,7 +8,7 @@ Here they are:
 @enum
 class DivisionResult:
     Undefined = Case()
-    Some = Case(number=float)
+    Some = Case(number=float) # Equivalent: Some = Case(number=(float, field()))
 
 def divide(a: float, b: float) -> DivisionResult:
     if b == 0: return DivisionResult.Undefined()
