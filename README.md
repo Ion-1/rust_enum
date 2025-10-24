@@ -1,8 +1,6 @@
 # Rust-style enums for Python
 
-Easily-defined enumerations that can contain data and be matched.
-
-Here they are:
+Enumerations that can contain data and be matched.
 
 ```python
 from rust_enum import enum, Case
@@ -22,20 +20,35 @@ match divide(3, 3):
     case _: assert False
 ```
 
-Also Option is implemented, so you can do it even faster in most cases:
+Both Option and Result are implemented, so you can do it even faster in most cases:
 
 ```python
-from rust_enum import Option
+from rust_enum import Option, Result
+
+class DivByZeroError(Exception):
+    pass
 
 def divide(a: float, b: float) -> Option[float]:
     if b == 0: return Option.Nothing()
     return Option.Some(a / b)
 
+def divide_res(a: float, b: float) -> Result[float, DivByZeroError]:
+    if b == 0: return Result.Err(DivByZeroError())
+    return Result.Ok(a / b)
+
 assert divide(6, 2).unwrap() == 3
 assert divide(6, 2).unwrap_or(None) == 3
 assert divide(6, 0).unwrap_or(None) is None
 assert divide(6, 2).map(lambda v: v * 3) == Option.Some(9)
+assert divide(6, 0).map(lambda v: v * 3) == Option.Nothing()
 assert divide(6, 2).and_then(lambda v: divide(v, 3)) == Option.Some(1)
+
+assert divide_res(6, 2).unwrap() == 3
+assert divide_res(6, 2).unwrap_or(None) == 3
+assert divide_res(6, 0).unwrap_or(None) is None
+assert divide_res(6, 2).map(lambda v: v * 3) == Result.Ok(9)
+assert divide_res(6, 0).map(lambda v: v * 3) == Result.Err(DivByZeroError())
+assert divide_res(6, 2).and_then(lambda v: divide_res(v, 3)) == Result.Ok(1)
 ```
 
 ## Installation
