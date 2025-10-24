@@ -5,6 +5,9 @@ Easily-defined enumerations that can contain data and be matched.
 Here they are:
 
 ```python
+from rust_enum import enum, Case
+from dataclasses import field
+
 @enum
 class DivisionResult:
     Undefined = Case()
@@ -22,6 +25,8 @@ match divide(3, 3):
 Also Option is implemented, so you can do it even faster in most cases:
 
 ```python
+from rust_enum import Option
+
 def divide(a: float, b: float) -> Option[float]:
     if b == 0: return Option.Nothing()
     return Option.Some(a / b)

@@ -5,8 +5,10 @@ from typing import Any, TypeVar, Generic, Callable
 
 
 def expand(case_tuple):
-    if isinstance((field_tuple := case_tuple[1]), tuple) and isinstance((field := field_tuple[1]), Field):
-        return (case_tuple[0], field_tuple[0], field)
+    if (isinstance((field_tuple := case_tuple[1]), tuple) 
+            and len(field_tuple) == 2
+            and isinstance((field := field_tuple[1]), Field)):
+        return case_tuple[0], field_tuple[0], field
     return case_tuple
 
 
