@@ -4,7 +4,7 @@ from dataclasses import make_dataclass, Field
 from typing import Any, TypeVar, Generic, Callable
 
 
-def expand(case_tuple):
+def _expand(case_tuple):
     if (isinstance((field_tuple := case_tuple[1]), tuple) 
             and len(field_tuple) == 2
             and isinstance((field := field_tuple[1]), Field)):
@@ -16,7 +16,7 @@ def enum(cls):
     """Create enumeration from class."""
     for field_name in dir(cls):
         if not isinstance((value := getattr(cls, field_name)), Case): continue
-        setattr(cls, field_name, make_dataclass(field_name, [expand(tup) for tup in value.dict.items()], bases=(cls, )))
+        setattr(cls, field_name, make_dataclass(field_name, [_expand(tup) for tup in value.dict.items()], bases=(cls,)))
     return cls
 
 
