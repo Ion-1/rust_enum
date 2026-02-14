@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from . import enum, Case
+from .enum import enum, Case
 from collections.abc import Generator
 from typing import TypeVar, Generic, Callable, Any
 

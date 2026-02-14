@@ -1,6 +1,6 @@
 [project]
 name = "rust_enum"
-version = "1.2.1"
+version = "1.2.2"
 description = "Rust-style enums"
 authors = [
     { name = "Nikita Girvel Dobrynin", email = "widauka@ya.ru" },

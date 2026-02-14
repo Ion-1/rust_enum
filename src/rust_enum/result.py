@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from . import enum, Case, UnwrappingError, Option
-from collections.abc import Generator
-from typing import TypeVar, Generic, Callable, Any
+from .enum import enum, Case
+from .option import UnwrappingError, Option
+from typing import TypeVar, Generic, Callable
 
 T = TypeVar("T")
 E = TypeVar("E")
