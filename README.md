@@ -20,6 +20,17 @@ match divide(3, 3):
     case _: assert False
 ```
 
+Provide a `tuple[type, dataclasses.Field]` to use dataclass features:
+```python
+from rust_enum import enum, Case
+from dataclasses import field
+
+@enum
+class DivisionResult:
+    Undefined = Case()
+    Some = Case(number=(float, field(doc="The division result")))
+```
+
 Both Option and Result are implemented, so you can do it even faster in most cases:
 
 ```python
